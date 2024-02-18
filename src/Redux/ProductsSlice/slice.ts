@@ -1,30 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { productsInitialState } from "./modules/initialState";
-import {
-  getFiilteredDataReducer,
-  getFiilteredDataReducerFullfilled,
-  getFiilteredDataReducerPending,
-  getFiilteredDataReducerRejected,
-} from "./extraReducer/getFiilteredDataReducer";
+import setLoading from "../ProductsSlice/modules/setLoading";
+import setError from "./modules/setError";
+import setProductData from "./modules/setProductData";
 
 const productSlice = createSlice({
   name: "productSlice",
   initialState: productsInitialState,
-  reducers: {},
-  extraReducers(builder) {
-    builder.addCase(
-      getFiilteredDataReducer.pending,
-      getFiilteredDataReducerPending
-    );
-    builder.addCase(
-      getFiilteredDataReducer.fulfilled,
-      getFiilteredDataReducerFullfilled
-    );
-    builder.addCase(
-      getFiilteredDataReducer.rejected,
-      getFiilteredDataReducerRejected
-    );
+  reducers: {
+    setProductLoadingReducer: setLoading,
+    setProductErrorReducer: setError,
+    setProductDataReducer: setProductData,
   },
 });
 
+export const {
+  setProductLoadingReducer,
+  setProductErrorReducer,
+  setProductDataReducer,
+} = productSlice.actions;
 export default productSlice.reducer;

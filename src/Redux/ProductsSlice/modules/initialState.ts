@@ -1,5 +1,5 @@
-export interface productCard {
-  id: string;
+export interface productCardI {
+  _id: string;
   name: string;
   description: string;
   category: string;
@@ -24,7 +24,7 @@ export interface productSliceInitialStateI {
   loading: boolean;
   message: string;
   status: boolean;
-  products: productCard[];
+  products: productCardI[];
 }
 
 export const productsInitialState: productSliceInitialStateI = {

@@ -5,6 +5,8 @@ import { AppDispatch, RootState } from "../../Redux/ReduxStore";
 import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initialState";
 import { applyFiltersReducer } from "../../Redux/FilterSlice/slice";
 import debounce from "../../utils/debounce";
+import { setProductDataReducer, setProductErrorReducer, setProductLoadingReducer } from "../../Redux/ProductsSlice/slice";
+import { GetFilteredDataApiService, apiResponse } from "../../api/apiService";
 
 const SearchQuerryFilter: React.FC = () => {
   const { querry } = useSelector<RootState>(
@@ -19,6 +21,16 @@ const SearchQuerryFilter: React.FC = () => {
         querry: event.target.value,
       })
     );
+    // update new data
+    // (async function () {
+    //   dispatch(setProductLoadingReducer());
+    //   const response: apiResponse = await GetFilteredDataApiService(undefined);
+    //   if (response.status) {
+    //     dispatch(setProductDataReducer(response));
+    //   } else {
+    //     dispatch(setProductErrorReducer(response));
+    //   }
+    // })();
   };
   return (
     <TextField

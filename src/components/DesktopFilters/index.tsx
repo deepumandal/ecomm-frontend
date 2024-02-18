@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Stack from "@mui/material/Stack";
 import SearchQuerryFilter from "../SearchQuerryFilter";
 import MinMaxPriceFilter from "../MinMaxPriceFilter";
@@ -10,7 +10,7 @@ const DesktopFilters: React.FC = () => {
     <Stack
       sx={{
         border: "1px solid grey",
-        width: "40%",
+        width: "30%",
         margin: 1,
         height: "fit-content",
         gap: 2,
@@ -25,4 +25,4 @@ const DesktopFilters: React.FC = () => {
   );
 };
 
-export default DesktopFilters;
+export default memo(DesktopFilters);

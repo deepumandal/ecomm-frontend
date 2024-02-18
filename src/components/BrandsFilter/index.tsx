@@ -26,6 +26,15 @@ const BrandsFilter: React.FC = () => {
         brand: event.target.value,
       })
     );
+    // (async function () {
+    //   dispatch(setProductLoadingReducer());
+    //   const response: apiResponse = await GetFilteredDataApiService(undefined);
+    //   if (response.status) {
+    //     dispatch(setProductDataReducer(response));
+    //   } else {
+    //     dispatch(setProductErrorReducer(response));
+    //   }
+    // })();
   };
 
   const Categories = CategoryLists.find((item) => item.name) || {

@@ -24,18 +24,21 @@ const CategoryFilter = () => {
       dispatch(
         applyFiltersReducer({
           category: "",
+          subcategory: undefined,
         })
       );
     } else if (typeof value == "string") {
       dispatch(
         applyFiltersReducer({
           category: value,
+          subcategory: undefined,
         })
       );
     } else {
       dispatch(
         applyFiltersReducer({
           category: value.value,
+          subcategory: undefined,
         })
       );
     }

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productSlice from "./ProductsSlice/slice";
 import filterSlice from "./FilterSlice/slice";
+import cartSlice from "./CartSlice/slice";
 
 const reduxStore = configureStore({
   reducer: {
     productSlice,
     filterSlice,
+    cartSlice,
   },
 });
 

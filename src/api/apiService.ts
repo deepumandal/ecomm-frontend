@@ -1,6 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { EnvProvider } from "../utils/EnvProvider";
 import { filterSliceInitialStateI } from "../Redux/FilterSlice/modules/initialState";
+import {
+  cartDataInterface,
+  cartSliceInitialStateInterface,
+} from "../Redux/CartSlice/module/initialState";
 
 const AxiosInstance = axios.create({
   baseURL: EnvProvider().SERVER_BASE_URL,
@@ -31,7 +35,35 @@ export const GetFilteredDataApiService = async (
     if (!response.status) {
       throw response;
     }
-    return response.data
+    return response.data;
+  } catch (err) {
+    return (err as AxiosError).response?.data as apiResponse;
+  }
+};
+export const AddtoCartApiService = async (payload: cartDataInterface) => {
+  let requestBody = {};
+  if (payload !== undefined) requestBody = payload;
+  try {
+    const response: apiResponse = await AxiosInstance.post(
+      "/cart/add",
+      requestBody
+    );
+
+    if (!response.status) {
+      throw response;
+    }
+    return response.data;
+  } catch (err) {
+    return (err as AxiosError).response?.data as apiResponse;
+  }
+};
+export const GetCartDataApiService = async () => {
+  try {
+    const response: apiResponse = await AxiosInstance.get("/cart/getCartData");
+    if (!response.status) {
+      throw response;
+    }
+    return response.data;
   } catch (err) {
     return (err as AxiosError).response?.data as apiResponse;
   }

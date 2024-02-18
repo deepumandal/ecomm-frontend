@@ -13,7 +13,6 @@ const App: React.FC = () => {
       sx={{
         width: "100%",
         height: "100vh",
-        overflow: "hidden",
       }}
     >
       <Navbar />

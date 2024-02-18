@@ -5,8 +5,6 @@ const applyFilters = (
   state: filterSliceInitialStateI,
   action: PayloadAction<filterSliceInitialStateI>
 ): filterSliceInitialStateI => {
-  
-  
   return {
     ...state,
     ...action.payload,

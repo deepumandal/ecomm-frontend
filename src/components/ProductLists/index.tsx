@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 import SelectFilter from "../SelectFilter";
 import { priceRangeI } from "../../utils/constants";
 import { useSelector } from "react-redux";
@@ -8,19 +8,18 @@ import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initia
 import { CategoryLists } from "../../utils/CatSubcatBrands";
 import CategoryFilter from "../Categoryfilter";
 import SubCategoryFilter from "../SubCategoryFilter";
+import { productSliceInitialStateI } from "../../Redux/ProductsSlice/modules/initialState";
+import ProductCard from "../ProductCard";
+import { cartSliceInitialStateInterface } from "../../Redux/CartSlice/module/initialState";
 
 const ProductLists: React.FC = () => {
-  const { category, subcategory } = useSelector<RootState>(
-    (store) => store.filterSlice
-  ) as filterSliceInitialStateI;
+  const { products } = useSelector<RootState>(
+    (store) => store.productSlice
+  ) as productSliceInitialStateI;
 
-  const handleApplyCatSubCate = (
-    event: React.SyntheticEvent,
-    value: string | priceRangeI | null
-  ) => {
-    // todo
-  };
-
+  const { cartData } = useSelector<RootState>(
+    (store) => store.cartSlice
+  ) as cartSliceInitialStateInterface;
   return (
     <Stack
       sx={{
@@ -38,9 +37,22 @@ const ProductLists: React.FC = () => {
         <CategoryFilter />
         <SubCategoryFilter />
       </Stack>
-      <Stack>products</Stack>
+      <Stack flexDirection={"row"} flexWrap={"wrap"}>
+        {products.map((product) => {
+          return (
+            <ProductCard
+              key={product._id}
+              product={product}
+              productCount={
+                cartData.find((cart) => cart.productId == product._id)
+                  ?.productCount || 0
+              }
+            />
+          );
+        })}
+      </Stack>
     </Stack>
   );
 };
 
-export default ProductLists;
+export default memo(ProductLists);

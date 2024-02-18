@@ -22,18 +22,21 @@ const SubCategoryFilter: React.FC = () => {
       dispatch(
         applyFiltersReducer({
           subcategory: "",
+          brand : undefined
         })
       );
     } else if (typeof value == "string") {
       dispatch(
         applyFiltersReducer({
           subcategory: value,
+          brand : undefined
         })
       );
     } else {
       dispatch(
         applyFiltersReducer({
           subcategory: value.value,
+          brand : undefined
         })
       );
     }
