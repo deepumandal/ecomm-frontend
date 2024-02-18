@@ -4,8 +4,14 @@ import Logo from "../Logo";
 import UserMenu from "../UserMenu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Hamburgur from "../Hamburgur";
+import { Router, useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
+  const router = useNavigate();
+
+  const handleCartRoute = () => {
+    router("/cart");
+  };
   return (
     <Stack
       direction={"row"}
@@ -72,7 +78,15 @@ const Navbar: React.FC = () => {
             sm: "flex",
           }}
         >
-          <Stack flexDirection={"row"} gap={1} alignItems={"center"}>
+          <Stack
+            onClick={handleCartRoute}
+            flexDirection={"row"}
+            gap={1}
+            alignItems={"center"}
+            sx={{
+              cursor: "pointer",
+            }}
+          >
             <Typography>Cart</Typography>
             <ShoppingCartIcon fontSize="medium" />
           </Stack>

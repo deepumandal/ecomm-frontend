@@ -1,9 +1,26 @@
-import React from 'react'
+import { Stack } from "@mui/material";
+import React from "react";
 
-const HomePage = () => {
+import DesktopFilters from "../../components/DesktopFilters";
+import ProductLists from "../../components/ProductLists";
+
+const HomePage: React.FC = () => {
   return (
-    <div>HomePage</div>
-  )
-}
+    <Stack
+      sx={{
+        width: "100%",
+        maxWidth: "1200px",
+        mx: "auto",
+        marginTop: "20px",
+      }}
+      flexDirection={"row"}
+      justifyContent={"space-between"}
+    >
+      <DesktopFilters />
 
-export default HomePage
+      <ProductLists />
+    </Stack>
+  );
+};
+
+export default HomePage;
