@@ -38,13 +38,14 @@ const ProductLists: React.FC = () => {
         <SubCategoryFilter />
       </Stack>
       <Stack flexDirection={"row"} flexWrap={"wrap"}>
+        {/* todo */}
         {products.map((product) => {
           return (
             <ProductCard
               key={product._id}
               product={product}
               productCount={
-                cartData.find((cart) => cart.productId == product._id)
+                cartData?.find((cart) => cart.productId == product._id)
                   ?.productCount || 0
               }
             />

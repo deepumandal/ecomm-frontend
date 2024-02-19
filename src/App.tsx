@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./app.css";
-
 import { Stack } from "@mui/material";
 import {
   Outlet,
@@ -35,10 +34,15 @@ import {
   setOrderLoadingReducer,
   setOrdertDataReducer,
 } from "./Redux/OrderSlice/slice";
+import PrivateRoute from "./HOC";
+import { userSliceInitialStateInterface } from "./Redux/UserSlice/module/initialState";
 
 let isfirst: boolean = true;
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { userData } = useSelector<RootState>(
+    (store) => store.UserSlice
+  ) as userSliceInitialStateInterface;
 
   const {
     averageRating,
@@ -93,31 +97,36 @@ const App: React.FC = () => {
   ]);
 
   useEffect(() => {
-    (async function () {
-      dispatch(setCartLoadingReducer());
-      const response: apiResponse = await GetCartDataApiService();
-      if (response.status) {
-        dispatch(setCartDataReducer(response));
-      } else {
-        dispatch(setCartErrorReducer(response));
-      }
-    })();
+    userData.token &&
+      (async function () {
+        dispatch(setCartLoadingReducer());
+        const response: apiResponse = await GetCartDataApiService({
+          userId: userData.userId,
+        });
+        if (response.status) {
+          dispatch(setCartDataReducer(response));
+        } else {
+          dispatch(setCartErrorReducer(response));
+        }
+      })();
   }, []);
 
   useEffect(() => {
     // getOrder
-    (async function () {
-      dispatch(setOrderLoadingReducer());
+    userData.token &&
+      (async function () {
+        dispatch(setOrderLoadingReducer());
 
-      const response: apiResponse = await getOrdersDataApiService();
+        const response: apiResponse = await getOrdersDataApiService({
+          userId: userData.userId,
+        });
 
-      if (response.status) {
-        dispatch(setOrdertDataReducer(response));
-      } else {
-        dispatch(setOrderErrorReducer(response));
-      }
-
-    })();
+        if (response.status) {
+          dispatch(setOrdertDataReducer(response));
+        } else {
+          dispatch(setOrderErrorReducer(response));
+        }
+      })();
   }, []);
 
   return (
@@ -142,15 +151,21 @@ const AppRoute = createHashRouter([
         path: "/",
         element: <HomePage />,
       },
-      {
-        path: "/auth",
-        element: <Authentication />,
-      },
+
       {
         path: "/cart",
-        element: <CartAndcheckout />,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <CartAndcheckout />
+          </PrivateRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "/auth",
+    element: <Authentication />,
   },
 ]);
 

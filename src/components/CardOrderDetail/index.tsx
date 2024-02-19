@@ -1,21 +1,39 @@
+import { Stack, Typography } from "@mui/material";
 import React from "react";
-import { productCardI } from "../../Redux/ProductsSlice/modules/initialState";
-import { cartDataInterface } from "../../Redux/CartSlice/module/initialState";
-import { OrderedProductInterface } from "../../Redux/OrderSlice/module/initialState";
 
 interface componentInterface {
-  product: productCardI & cartDataInterface & OrderedProductInterface;
+  ExpectedDelivery: string;
 }
-const CardOrderDetail: React.FC<componentInterface> = ({ product }) => {
-  const { ExpectedDelivery } = product;
+const CardOrderDetail: React.FC<componentInterface> = ({
+  ExpectedDelivery,
+}) => {
   return (
-    <div>
+    <Stack
+      margin={1}
+      flexDirection={"column"}
+      alignItems={"flex-end"}
+      justifyContent={"flex-end"}
+    >
       {" "}
       CardOrderDetail:{" "}
-      {Date.now() >= parseInt(ExpectedDelivery)
-        ? "Order Delivered"
-        : "Dispatched/shipped"}
-    </div>
+      {Date.now() >= parseInt(ExpectedDelivery) ? (
+        <Typography
+          sx={{
+            color: "green",
+          }}
+        >
+          Order Delivered
+        </Typography>
+      ) : (
+        <Typography
+          sx={{
+            color: "red",
+          }}
+        >
+          Dispatched
+        </Typography>
+      )}
+    </Stack>
   );
 };
 

@@ -28,7 +28,7 @@ export default function Review() {
     (store) => store.cartSlice
   ) as cartSliceInitialStateInterface;
 
-  const { products } = useSelector<RootState>(
+  const { products, productCache } = useSelector<RootState>(
     (store) => store.productSlice
   ) as productSliceInitialStateI;
 
@@ -38,41 +38,36 @@ export default function Review() {
     return { ...product, ...cart };
   }) as (productCardI & cartDataInterface)[];
 
-  const totalAmount = product.reduce((_, item) => {
-    return _ + item.productCount * item.price;
-  }, 0);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {product.map(
-          ({
-            name,
-            description,
-            price,
-            productCount,
-          }: productCardI & cartDataInterface) => (
-            <ListItem key={name} sx={{ py: 1, px: 0 }}>
-              <ListItemText
-                primary={name}
-                secondary={`${description?.slice(0, 20)}...`}
-              />
-              <Typography variant="body2">
-                {" "}
-                {productCount} * {price}
-              </Typography>
-            </ListItem>
-          )
-        )}
+        {cartData.map(({ productId, productCount }: cartDataInterface) => (
+          <ListItem key={productId} sx={{ py: 1, px: 0 }}>
+            <ListItemText
+              primary={productCache[productId]?.name}
+              secondary={`${productCache[productId]?.description?.slice(
+                0,
+                20
+              )}...`}
+            />
+            <Typography variant="body2">
+              {" "}
+              {productCount} * {productCache[productId]?.price}
+            </Typography>
+          </ListItem>
+        ))}
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography
             variant="subtitle1"
             sx={{ fontWeight: 700, color: "red" }}
           >
-            {totalAmount}
+            {cartData.reduce((_, { productCount, productTotal }) => {
+              return _ + productCount * productTotal;
+            }, 0)}
           </Typography>
         </ListItem>
       </List>

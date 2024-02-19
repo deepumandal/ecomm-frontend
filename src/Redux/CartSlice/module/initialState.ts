@@ -2,6 +2,7 @@ export interface cartDataInterface {
   productId: string;
   productCount: number;
   productTotal: number;
+  userId: string;
 }
 export interface cartSliceInitialStateInterface {
   loading: boolean;

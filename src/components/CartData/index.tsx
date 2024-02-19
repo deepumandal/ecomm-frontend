@@ -3,21 +3,13 @@ import React from "react";
 import { RootState } from "../../Redux/ReduxStore";
 import { useSelector } from "react-redux";
 import { cartSliceInitialStateInterface } from "../../Redux/CartSlice/module/initialState";
-
-import {
-  productCardI,
-  productSliceInitialStateI,
-} from "../../Redux/ProductsSlice/modules/initialState";
-import ProductCart from "../ProductCart";
+import CartAndOrderProduct from "../CartAndOrderProduct";
 
 const CartData: React.FC = () => {
   const { cartData } = useSelector<RootState>(
     (store) => store.cartSlice
   ) as cartSliceInitialStateInterface;
 
-  const { products } = useSelector<RootState>(
-    (store) => store.productSlice
-  ) as productSliceInitialStateI;
   return (
     <Stack
       sx={{
@@ -30,15 +22,15 @@ const CartData: React.FC = () => {
       </Typography>
       <Stack flexDirection={"column"}>
         {cartData.map((cartitem) => {
+          const { productCount, productId, productTotal } = cartitem;
+
           return (
-            <ProductCart
+            <CartAndOrderProduct
               key={cartitem.productId}
-              product={{
-                ...(products.find(
-                  (product) => product._id == cartitem.productId
-                ) as productCardI),
-                ...cartitem,
-              }}
+              type="Cart"
+              productCount={productCount}
+              productId={productId}
+              productTotal={productTotal}
             />
           );
         })}
