@@ -3,11 +3,11 @@ export interface filterSliceInitialStateI {
   subcategory?: string;
   brand?: string;
   averageRating?: number;
-  avgtype?: "gt" | "lte";
+  avgtype?: string;
   name?: string;
   querry?: string;
-  minPrice?: number;
-  maxPrice?: number;
+  minPrice?: string;
+  maxPrice?: string;
 }
 
 export const filterSliceInitialState: filterSliceInitialStateI = {};
