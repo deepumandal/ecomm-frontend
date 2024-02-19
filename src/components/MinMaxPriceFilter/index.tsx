@@ -10,12 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/ReduxStore";
 import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initialState";
 import { applyFiltersReducer } from "../../Redux/FilterSlice/slice";
-import {
-  setProductDataReducer,
-  setProductErrorReducer,
-  setProductLoadingReducer,
-} from "../../Redux/ProductsSlice/slice";
-import { GetFilteredDataApiService, apiResponse } from "../../api/apiService";
 
 const MinMaxPriceFilter: React.FC = () => {
   const { minPrice, maxPrice } = useSelector<RootState>(
@@ -29,8 +23,13 @@ const MinMaxPriceFilter: React.FC = () => {
     value: string | priceRangeI | null,
     key: "minPrice" | "maxPrice"
   ) => {
-    if (!value) return;
-    if (typeof value == "string") {
+    if (value == null) {
+      dispatch(
+        applyFiltersReducer({
+          [key]: undefined,
+        })
+      );
+    } else if (typeof value == "string") {
       dispatch(
         applyFiltersReducer({
           [key]: value,
