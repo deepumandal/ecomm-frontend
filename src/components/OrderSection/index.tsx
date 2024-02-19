@@ -3,23 +3,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/ReduxStore";
 import { orderSliceInitialStateInterface } from "../../Redux/OrderSlice/module/initialState";
-import {
-  productCardI,
-  productSliceInitialStateI,
-} from "../../Redux/ProductsSlice/modules/initialState";
-import ProductCart from "../ProductCart";
-import OrderedCard from "../OrderedCard";
+import CartAndOrderProduct from "../CartAndOrderProduct";
 
-{
-  /* <CardOrderDetail product={product} /> */
-}
 const OrderSection: React.FC = () => {
   const { orderedProducts } = useSelector<RootState>(
     (store) => store.orderSlice
   ) as orderSliceInitialStateInterface;
-  const { products } = useSelector<RootState>(
-    (store) => store.productSlice
-  ) as productSliceInitialStateI;
   return (
     <Stack
       sx={{
@@ -31,16 +20,24 @@ const OrderSection: React.FC = () => {
         Orders
       </Typography>
       <Stack flexDirection={"column"}>
-        {orderedProducts.map((cartitem) => {
+        {orderedProducts?.map((orderedItem) => {
+          const {
+            ExpectedDelivery,
+            OrderId,
+            productCount,
+            productId,
+            productTotal,
+          } = orderedItem;
+
           return (
-            <OrderedCard
-              key={cartitem.productId}
-              product={{
-                ...(products.find(
-                  (product) => product._id == cartitem.productId
-                ) as productCardI),
-                ...cartitem,
-              }}
+            <CartAndOrderProduct
+              key={orderedItem.productId}
+              productCount={productCount}
+              productId={productId}
+              productTotal={productTotal}
+              type="Order"
+              ExpectedDelivery={ExpectedDelivery}
+              OrderId={OrderId}
             />
           );
         })}

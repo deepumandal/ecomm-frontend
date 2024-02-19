@@ -1,18 +1,17 @@
 import { apiResponse } from "../../../api/apiService";
-import { cartSliceInitialStateInterface } from "./initialState";
+import { userSliceInitialStateInterface } from "./initialState";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 const getCartData = (
-  state: cartSliceInitialStateInterface,
+  state: userSliceInitialStateInterface,
   action: PayloadAction<apiResponse>
-): cartSliceInitialStateInterface => {
-  console.log("hello", action.payload.data)
+): userSliceInitialStateInterface => {
   return {
     ...state,
     loading: false,
-    cartData: action.payload.data,
     message: action.payload.message,
     status: action.payload.status,
+    userData: action.payload.data,
   };
 };
 

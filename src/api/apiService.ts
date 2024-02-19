@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosHeaders } from "axios";
 import { EnvProvider } from "../utils/EnvProvider";
 import { filterSliceInitialStateI } from "../Redux/FilterSlice/modules/initialState";
 import {
@@ -11,7 +11,6 @@ const AxiosInstance = axios.create({
   baseURL: EnvProvider().SERVER_BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    // todo
   },
 });
 
@@ -41,13 +40,24 @@ export const GetFilteredDataApiService = async (
     return (err as AxiosError).response?.data as apiResponse;
   }
 };
-export const AddtoCartApiService = async (payload: cartDataInterface) => {
+// payload: cartDataInterface
+export const AddtoCartApiService = async (payload: {
+  payload: cartDataInterface;
+  headers: {
+    Authorization: string;
+  };
+}) => {
   let requestBody = {};
-  if (payload !== undefined) requestBody = payload;
+  if (payload !== undefined) requestBody = payload.payload;
   try {
     const response: apiResponse = await AxiosInstance.post(
       "/cart/add",
-      requestBody
+      requestBody,
+      {
+        headers: {
+          ...payload.headers,
+        },
+      }
     );
 
     if (!response.status) {
@@ -58,9 +68,12 @@ export const AddtoCartApiService = async (payload: cartDataInterface) => {
     return (err as AxiosError).response?.data as apiResponse;
   }
 };
-export const ClearCartDataApiService = async () => {
+export const ClearCartDataApiService = async (payload: { userId: string }) => {
   try {
-    const response: apiResponse = await AxiosInstance.get("/cart/clear");
+    const response: apiResponse = await AxiosInstance.post(
+      "/cart/clear",
+      payload
+    );
 
     if (!response.status) {
       throw response;
@@ -70,9 +83,12 @@ export const ClearCartDataApiService = async () => {
     return (err as AxiosError).response?.data as apiResponse;
   }
 };
-export const GetCartDataApiService = async () => {
+export const GetCartDataApiService = async (payload: { userId: string }) => {
   try {
-    const response: apiResponse = await AxiosInstance.get("/cart/getCartData");
+    const response: apiResponse = await AxiosInstance.post(
+      "/cart/getCartData",
+      payload
+    );
     if (!response.status) {
       throw response;
     }
@@ -83,12 +99,30 @@ export const GetCartDataApiService = async () => {
 };
 
 export const OrderProductApiService = async (
-  orderData: OrderedProductInterface[]
+  // orderData: OrderedProductInterface[]
+
+  {
+    payload,
+    headers,
+  }: {
+    payload: {
+      userId: string;
+      requestOrders: OrderedProductInterface[];
+    };
+    headers: {
+      Authorization: string;
+    };
+  }
 ) => {
   try {
     const response: apiResponse = await AxiosInstance.post(
-      "/order/setOrder",
-      orderData
+      "/order/placeOrder",
+      payload,
+      {
+        headers: {
+          ...headers,
+        },
+      }
     );
     if (!response.status) {
       throw response;
@@ -98,9 +132,47 @@ export const OrderProductApiService = async (
     return (err as AxiosError).response?.data as apiResponse;
   }
 };
-export const getOrdersDataApiService = async () => {
+export const getOrdersDataApiService = async (payload: { userId: string }) => {
   try {
-    const response: apiResponse = await AxiosInstance.get("/order/getOrder");
+    const response: apiResponse = await AxiosInstance.post(
+      "/order/getOrder",
+      payload
+    );
+    if (!response.status) {
+      throw response;
+    }
+    return response.data;
+  } catch (err) {
+    return (err as AxiosError).response?.data as apiResponse;
+  }
+};
+export const SignInApiService = async (requestBody: {
+  email: string;
+  password: string;
+}) => {
+  try {
+    const response: apiResponse = await AxiosInstance.post(
+      "/user/login",
+      requestBody
+    );
+    if (!response.status) {
+      throw response;
+    }
+    return response.data;
+  } catch (err) {
+    return (err as AxiosError).response?.data as apiResponse;
+  }
+};
+export const SignUpApiService = async (requestBody: {
+  email: string;
+  password: string;
+  name: string;
+}) => {
+  try {
+    const response: apiResponse = await AxiosInstance.post(
+      "/user/signup",
+      requestBody
+    );
     if (!response.status) {
       throw response;
     }

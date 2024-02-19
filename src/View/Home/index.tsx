@@ -4,7 +4,6 @@ import React from "react";
 import DesktopFilters from "../../components/DesktopFilters";
 import ProductLists from "../../components/ProductLists";
 
-let isfirst: boolean = true;
 const HomePage: React.FC = () => {
   return (
     <Stack

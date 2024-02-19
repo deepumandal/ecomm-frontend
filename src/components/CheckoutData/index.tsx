@@ -31,6 +31,7 @@ import {
   setCartLoadingReducer,
 } from "../../Redux/CartSlice/slice";
 import { steps } from "../../utils/constants";
+import { userSliceInitialStateInterface } from "../../Redux/UserSlice/module/initialState";
 
 function getStepContent(step: number) {
   switch (step) {
@@ -53,6 +54,10 @@ const CheckoutData: React.FC = () => {
     (store) => store.cartSlice
   ) as cartSliceInitialStateInterface;
 
+  const { userData } = useSelector<RootState>(
+    (store) => store.UserSlice
+  ) as userSliceInitialStateInterface;
+
   const dispatch = useDispatch<AppDispatch>();
 
   const handleCartOrder = async () => {
@@ -65,8 +70,17 @@ const CheckoutData: React.FC = () => {
       ExpectedDelivery,
       OrderId,
     }));
+
     dispatch(setOrderLoadingReducer());
-    const response: apiResponse = await OrderProductApiService(ProductDetails);
+    const response: apiResponse = await OrderProductApiService({
+      payload: {
+        userId: userData.userId,
+        requestOrders: ProductDetails,
+      },
+      headers: {
+        Authorization: userData.token,
+      },
+    });
     if (response.status) {
       dispatch(setOrdertDataReducer(response));
     } else {
@@ -74,7 +88,9 @@ const CheckoutData: React.FC = () => {
     }
     // clear cart data as item purchaged
     dispatch(setCartLoadingReducer());
-    const clearCartResponse: apiResponse = await ClearCartDataApiService();
+    const clearCartResponse: apiResponse = await ClearCartDataApiService({
+      userId: userData.userId,
+    });
 
     if (clearCartResponse.status) {
       dispatch(setCartDataReducer(clearCartResponse));

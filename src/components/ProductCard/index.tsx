@@ -14,14 +14,16 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { productCardI } from "../../Redux/ProductsSlice/modules/initialState";
-import { AppDispatch } from "../../Redux/ReduxStore";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../Redux/ReduxStore";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setCartDataReducer,
   setCartErrorReducer,
   setCartLoadingReducer,
 } from "../../Redux/CartSlice/slice";
 import { AddtoCartApiService, apiResponse } from "../../api/apiService";
+import { userSliceInitialStateInterface } from "../../Redux/UserSlice/module/initialState";
+import { useNavigate } from "react-router-dom";
 
 interface componentInterface {
   product: productCardI;
@@ -32,17 +34,31 @@ const ProductCard: React.FC<componentInterface> = ({
   product,
   productCount,
 }) => {
+  const route = useNavigate();
   const { name, price, image, averageRating, _id } = product;
 
+  const { userData } = useSelector<RootState>(
+    (store) => store.UserSlice
+  ) as userSliceInitialStateInterface;
+
   const dispatch = useDispatch<AppDispatch>();
-  // addtoCartReducer
 
   const handleDecrement = async () => {
+    if (!userData.token) {
+      route("/auth");
+      return;
+    }
     dispatch(setCartLoadingReducer());
     const response: apiResponse = await AddtoCartApiService({
-      productCount: productCount - 1,
-      productId: _id,
-      productTotal: (productCount + 1) * price,
+      payload: {
+        productCount: productCount - 1,
+        productId: _id,
+        productTotal: (productCount + 1) * price,
+        userId: userData.userId,
+      },
+      headers: {
+        Authorization: userData.token,
+      },
     });
     if (response.status) {
       dispatch(setCartDataReducer(response));
@@ -51,11 +67,22 @@ const ProductCard: React.FC<componentInterface> = ({
     }
   };
   const handleIncrement = async () => {
+    if (!userData.token) {
+      route("/auth");
+      return;
+    }
+
     dispatch(setCartLoadingReducer());
     const response: apiResponse = await AddtoCartApiService({
-      productCount: productCount + 1,
-      productId: _id,
-      productTotal: (productCount + 1) * price,
+      payload: {
+        productCount: productCount + 1,
+        productId: _id,
+        productTotal: (productCount + 1) * price,
+        userId: userData.userId,
+      },
+      headers: {
+        Authorization: userData.token,
+      },
     });
     if (response.status) {
       dispatch(setCartDataReducer(response));

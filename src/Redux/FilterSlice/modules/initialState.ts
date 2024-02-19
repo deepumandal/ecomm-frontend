@@ -8,6 +8,7 @@ export interface filterSliceInitialStateI {
   querry?: string;
   minPrice?: string;
   maxPrice?: string;
+  _id?:string
 }
 
 export const filterSliceInitialState: filterSliceInitialStateI = {};

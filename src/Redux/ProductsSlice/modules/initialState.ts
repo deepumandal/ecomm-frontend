@@ -25,11 +25,15 @@ export interface productSliceInitialStateI {
   message: string;
   status: boolean;
   products: productCardI[];
+  productCache: {
+    [key: string]: productCardI; // optimised
+  };
 }
 
 export const productsInitialState: productSliceInitialStateI = {
   loading: false,
   message: "",
   products: [],
+  productCache: {},
   status: true,
 };
