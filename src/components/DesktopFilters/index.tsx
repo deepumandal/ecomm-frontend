@@ -9,7 +9,7 @@ const DesktopFilters: React.FC = () => {
   return (
     <Stack
       sx={{
-        border: "1px solid grey",
+        
         width: "30%",
         margin: 1,
         height: "fit-content",

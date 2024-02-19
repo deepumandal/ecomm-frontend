@@ -1,12 +1,10 @@
-import { TextField } from "@mui/material";
 import React, { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { TextField } from "@mui/material";
 import { AppDispatch, RootState } from "../../Redux/ReduxStore";
 import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initialState";
 import { applyFiltersReducer } from "../../Redux/FilterSlice/slice";
 import debounce from "../../utils/debounce";
-import { setProductDataReducer, setProductErrorReducer, setProductLoadingReducer } from "../../Redux/ProductsSlice/slice";
-import { GetFilteredDataApiService, apiResponse } from "../../api/apiService";
 
 const SearchQuerryFilter: React.FC = () => {
   const { querry } = useSelector<RootState>(
@@ -15,23 +13,17 @@ const SearchQuerryFilter: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleQuerryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      applyFiltersReducer({
-        querry: event.target.value,
-      })
-    );
-    // update new data
-    // (async function () {
-    //   dispatch(setProductLoadingReducer());
-    //   const response: apiResponse = await GetFilteredDataApiService(undefined);
-    //   if (response.status) {
-    //     dispatch(setProductDataReducer(response));
-    //   } else {
-    //     dispatch(setProductErrorReducer(response));
-    //   }
-    // })();
-  };
+  const handleQuerryChange = debounce(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      dispatch(
+        applyFiltersReducer({
+          querry: event.target.value,
+        })
+      );
+    },
+    300 
+  );
+
   return (
     <TextField
       defaultValue={querry}
@@ -41,7 +33,7 @@ const SearchQuerryFilter: React.FC = () => {
       }}
       label="Querry Search "
       variant="standard"
-      onChange={debounce(handleQuerryChange)}
+      onChange={handleQuerryChange}
     />
   );
 };

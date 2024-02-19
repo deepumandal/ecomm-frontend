@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import "./app.css";
-import { Stack } from "@mui/material";
-import {
-  Outlet,
-  createBrowserRouter,
-  createHashRouter,
-} from "react-router-dom";
-import HomePage from "./View/Home";
-import { Authentication } from "./View/Auth";
-import Navbar from "./components/Navbar";
-import CartAndcheckout from "./View/CartAndCheckOut";
+import Stack from "@mui/material/Stack";
+import { Outlet, createHashRouter } from "react-router-dom";
+
+const HomePage = lazy(() => import("./View/Home"));
+const Authentication = lazy(() => import("./View/Auth"));
+const CartAndCheckout = lazy(() => import("./View/CartAndCheckOut"));
+const PrivateRoute = lazy(() => import("./HOC"));
+const Navbar = lazy(() => import("./components/Navbar"));
+
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./Redux/ReduxStore";
 import { filterSliceInitialStateI } from "./Redux/FilterSlice/modules/initialState";
@@ -34,10 +33,10 @@ import {
   setOrderLoadingReducer,
   setOrdertDataReducer,
 } from "./Redux/OrderSlice/slice";
-import PrivateRoute from "./HOC";
 import { userSliceInitialStateInterface } from "./Redux/UserSlice/module/initialState";
 
 let isfirst: boolean = true;
+
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { userData } = useSelector<RootState>(
@@ -102,6 +101,9 @@ const App: React.FC = () => {
         dispatch(setCartLoadingReducer());
         const response: apiResponse = await GetCartDataApiService({
           userId: userData.userId,
+          headers: {
+            Authorization: userData.token,
+          },
         });
         if (response.status) {
           dispatch(setCartDataReducer(response));
@@ -119,6 +121,9 @@ const App: React.FC = () => {
 
         const response: apiResponse = await getOrdersDataApiService({
           userId: userData.userId,
+          headers: {
+            Authorization: userData.token,
+          },
         });
 
         if (response.status) {
@@ -149,23 +154,35 @@ const AppRoute = createHashRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: (
+          <Suspense>
+            {" "}
+            <HomePage />
+          </Suspense>
+        ),
       },
 
       {
         path: "/cart",
         element: (
-          <PrivateRoute>
-            {" "}
-            <CartAndcheckout />
-          </PrivateRoute>
+          <Suspense>
+            <PrivateRoute>
+              {" "}
+              <CartAndCheckout />
+            </PrivateRoute>
+          </Suspense>
         ),
       },
     ],
   },
   {
     path: "/auth",
-    element: <Authentication />,
+    element: (
+      <Suspense>
+        {" "}
+        <Authentication />
+      </Suspense>
+    ),
   },
 ]);
 

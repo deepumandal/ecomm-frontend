@@ -90,6 +90,9 @@ const CheckoutData: React.FC = () => {
     dispatch(setCartLoadingReducer());
     const clearCartResponse: apiResponse = await ClearCartDataApiService({
       userId: userData.userId,
+      headers: {
+        Authorization: userData.token,
+      },
     });
 
     if (clearCartResponse.status) {
