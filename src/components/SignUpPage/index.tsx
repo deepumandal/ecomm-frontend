@@ -20,7 +20,7 @@ import {
   setUserLoadingReducer,
 } from "../../Redux/UserSlice/slice";
 import { SignUpApiService, apiResponse } from "../../api/apiService";
-import { Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface pageProps {
   toggle: () => void;
@@ -33,11 +33,7 @@ const SignUpPage: React.FC<pageProps> = ({ toggle }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-      name: `${data.get("firstName")} ${data.get("lastName")}`,
-    });
+
     if (!data.get("email")) {
       alert("Please Enter Email");
       return;

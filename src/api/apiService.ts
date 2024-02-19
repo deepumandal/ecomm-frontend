@@ -68,11 +68,21 @@ export const AddtoCartApiService = async (payload: {
     return (err as AxiosError).response?.data as apiResponse;
   }
 };
-export const ClearCartDataApiService = async (payload: { userId: string }) => {
+export const ClearCartDataApiService = async (payload: {
+  userId: string;
+  headers: {
+    Authorization: string;
+  };
+}) => {
   try {
     const response: apiResponse = await AxiosInstance.post(
       "/cart/clear",
-      payload
+      payload,
+      {
+        headers: {
+          ...payload.headers,
+        },
+      }
     );
 
     if (!response.status) {
@@ -83,11 +93,21 @@ export const ClearCartDataApiService = async (payload: { userId: string }) => {
     return (err as AxiosError).response?.data as apiResponse;
   }
 };
-export const GetCartDataApiService = async (payload: { userId: string }) => {
+export const GetCartDataApiService = async (payload: {
+  userId: string;
+  headers: {
+    Authorization: string;
+  };
+}) => {
   try {
     const response: apiResponse = await AxiosInstance.post(
       "/cart/getCartData",
-      payload
+      payload,
+      {
+        headers: {
+          ...payload.headers,
+        },
+      }
     );
     if (!response.status) {
       throw response;
@@ -132,11 +152,21 @@ export const OrderProductApiService = async (
     return (err as AxiosError).response?.data as apiResponse;
   }
 };
-export const getOrdersDataApiService = async (payload: { userId: string }) => {
+export const getOrdersDataApiService = async (payload: {
+  userId: string;
+  headers: {
+    Authorization: string;
+  };
+}) => {
   try {
     const response: apiResponse = await AxiosInstance.post(
       "/order/getOrder",
-      payload
+      payload,
+      {
+        headers: {
+          ...payload.headers,
+        },
+      }
     );
     if (!response.status) {
       throw response;

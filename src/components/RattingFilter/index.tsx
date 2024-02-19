@@ -7,12 +7,6 @@ import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initia
 import { Stack } from "@mui/material";
 import { applyFiltersReducer } from "../../Redux/FilterSlice/slice";
 import SelectFilter from "../SelectFilter";
-import {
-  setProductDataReducer,
-  setProductErrorReducer,
-  setProductLoadingReducer,
-} from "../../Redux/ProductsSlice/slice";
-import { GetFilteredDataApiService, apiResponse } from "../../api/apiService";
 
 const RattingFilter = () => {
   const { averageRating } = useSelector<RootState>(
@@ -44,23 +38,12 @@ const RattingFilter = () => {
         })
       );
     }
-    // (async function () {
-    //   dispatch(setProductLoadingReducer());
-    //   const response: apiResponse = await GetFilteredDataApiService(undefined);
-    //   if (response.status) {
-    //     dispatch(setProductDataReducer(response));
-    //   } else {
-    //     dispatch(setProductErrorReducer(response));
-    //   }
-    // })();
   };
 
   const handleApplyCatSubCate = (
     event: React.SyntheticEvent,
     value: string | priceRangeI | null
   ) => {
-    console.log("value12345678", value);
-
     if (value === null) {
       dispatch(
         applyFiltersReducer({

@@ -4,7 +4,7 @@ import CartData from "../../components/CartData";
 import CheckoutData from "../../components/CheckoutData";
 import OrderSection from "../../components/OrderSection";
 
-const CartAndcheckout: React.FC = () => {
+const CartAndCheckout: React.FC = () => {
   return (
     <Stack>
       <Stack
@@ -33,4 +33,4 @@ const CartAndcheckout: React.FC = () => {
   );
 };
 
-export default CartAndcheckout;
+export default CartAndCheckout;

@@ -2,8 +2,7 @@ import { Stack } from "@mui/material";
 import React, { useState } from "react";
 import SignInPage from "../../components/SignInPage";
 import SignUpPage from "../../components/SignUpPage";
-
-export const Authentication: React.FC = () => {
+ const Authentication: React.FC = () => {
   const [IsalreadyUser, setIsalreadyUser] = useState<boolean>(true);
 
   const toggle = () => setIsalreadyUser((prev) => !prev);
@@ -18,3 +17,5 @@ export const Authentication: React.FC = () => {
     </Stack>
   );
 };
+
+export default Authentication

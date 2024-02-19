@@ -11,16 +11,15 @@ import {
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../Redux/ReduxStore";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../Redux/ReduxStore";
 import {
   setUserDataReducer,
   setUserErrorReducer,
   setUserLoadingReducer,
 } from "../../Redux/UserSlice/slice";
 import { SignInApiService, apiResponse } from "../../api/apiService";
-import { userSliceInitialStateInterface } from "../../Redux/UserSlice/module/initialState";
 import { useNavigate } from "react-router-dom";
 
 interface pageProps {
@@ -32,17 +31,11 @@ const SignInPage: React.FC<pageProps> = ({ toggle }) => {
 
   const route = useNavigate();
 
-  const { userData } = useSelector<RootState>(
-    (store) => store.UserSlice
-  ) as userSliceInitialStateInterface;
+
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
 
     if (!data.get("email")) {
       alert("Please Enter Email");

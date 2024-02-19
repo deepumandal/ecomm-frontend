@@ -42,15 +42,6 @@ const MinMaxPriceFilter: React.FC = () => {
         })
       );
     }
-    // (async function () {
-    //   dispatch(setProductLoadingReducer());
-    //   const response: apiResponse = await GetFilteredDataApiService(undefined);
-    //   if (response.status) {
-    //     dispatch(setProductDataReducer(response));
-    //   } else {
-    //     dispatch(setProductErrorReducer(response));
-    //   }
-    // })();
   };
 
   return (

@@ -1,6 +1,5 @@
-import { Stack } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import React from "react";
-
 import DesktopFilters from "../../components/DesktopFilters";
 import ProductLists from "../../components/ProductLists";
 

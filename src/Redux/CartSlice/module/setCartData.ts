@@ -6,7 +6,6 @@ const getCartData = (
   state: cartSliceInitialStateInterface,
   action: PayloadAction<apiResponse>
 ): cartSliceInitialStateInterface => {
-  console.log("hello", action.payload.data)
   return {
     ...state,
     loading: false,
