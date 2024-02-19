@@ -18,13 +18,12 @@ const CategoryFilter = () => {
     event: React.SyntheticEvent,
     value: string | priceRangeI | null
   ) => {
-    console.log("value12345678", value);
-
     if (value === null) {
       dispatch(
         applyFiltersReducer({
-          category: "",
+          category: undefined,
           subcategory: undefined,
+          brand: undefined,
         })
       );
     } else if (typeof value == "string") {
@@ -32,6 +31,7 @@ const CategoryFilter = () => {
         applyFiltersReducer({
           category: value,
           subcategory: undefined,
+          brand: undefined,
         })
       );
     } else {
@@ -39,6 +39,7 @@ const CategoryFilter = () => {
         applyFiltersReducer({
           category: value.value,
           subcategory: undefined,
+          brand: undefined,
         })
       );
     }

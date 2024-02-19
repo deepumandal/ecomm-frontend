@@ -23,3 +23,5 @@ export const RattingRange: RattingRangeI[] = [
   { label: "2", value: "2" },
   { label: "1", value: "1" },
 ];
+
+export const steps = ["Shipping address", "Payment details", "Review your order"];

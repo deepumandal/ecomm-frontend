@@ -7,7 +7,11 @@ import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initia
 import { Stack } from "@mui/material";
 import { applyFiltersReducer } from "../../Redux/FilterSlice/slice";
 import SelectFilter from "../SelectFilter";
-import { setProductDataReducer, setProductErrorReducer, setProductLoadingReducer } from "../../Redux/ProductsSlice/slice";
+import {
+  setProductDataReducer,
+  setProductErrorReducer,
+  setProductLoadingReducer,
+} from "../../Redux/ProductsSlice/slice";
 import { GetFilteredDataApiService, apiResponse } from "../../api/apiService";
 
 const RattingFilter = () => {
@@ -21,8 +25,13 @@ const RattingFilter = () => {
     event: React.SyntheticEvent,
     value: string | priceRangeI | null
   ) => {
-    if (!value) return;
-    if (typeof value == "string") {
+    if (value == null) {
+      dispatch(
+        applyFiltersReducer({
+          averageRating: undefined,
+        })
+      );
+    } else if (typeof value == "string") {
       dispatch(
         applyFiltersReducer({
           averageRating: parseFloat(value),
@@ -55,7 +64,7 @@ const RattingFilter = () => {
     if (value === null) {
       dispatch(
         applyFiltersReducer({
-          avgtype: "",
+          avgtype: undefined,
         })
       );
     } else if (typeof value == "string") {
@@ -88,7 +97,7 @@ const RattingFilter = () => {
         ]}
         label={"Gt or Lt"}
         disabled={false}
-        defaultValue="gt"
+        defaultValue={undefined}
       />
       <TypeAndSelect
         label="Ratings"

@@ -21,7 +21,7 @@ const SubCategoryFilter: React.FC = () => {
     if (value == null) {
       dispatch(
         applyFiltersReducer({
-          subcategory: "",
+          subcategory: undefined,
           brand : undefined
         })
       );
