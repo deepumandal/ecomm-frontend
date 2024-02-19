@@ -33,7 +33,7 @@ const ProductCartCalculation: React.FC<componentInterface> = ({
             color: "red",
           }}
         >
-          ${price.toFixed(2)}
+          ${price?.toFixed(2)}
         </Typography>
         /
         <Typography
@@ -73,7 +73,7 @@ const ProductCartCalculation: React.FC<componentInterface> = ({
             color: "red",
           }}
         >
-          {productCount * +price.toFixed(2)}
+          {productCount * +price?.toFixed(2)}
         </Typography>
       </Stack>
     </Stack>

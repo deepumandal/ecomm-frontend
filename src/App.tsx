@@ -23,12 +23,18 @@ import {
   GetCartDataApiService,
   GetFilteredDataApiService,
   apiResponse,
+  getOrdersDataApiService,
 } from "./api/apiService";
 import {
   setCartDataReducer,
   setCartErrorReducer,
   setCartLoadingReducer,
 } from "./Redux/CartSlice/slice";
+import {
+  setOrderErrorReducer,
+  setOrderLoadingReducer,
+  setOrdertDataReducer,
+} from "./Redux/OrderSlice/slice";
 
 let isfirst: boolean = true;
 const App: React.FC = () => {
@@ -95,6 +101,22 @@ const App: React.FC = () => {
       } else {
         dispatch(setCartErrorReducer(response));
       }
+    })();
+  }, []);
+
+  useEffect(() => {
+    // getOrder
+    (async function () {
+      dispatch(setOrderLoadingReducer());
+
+      const response: apiResponse = await getOrdersDataApiService();
+
+      if (response.status) {
+        dispatch(setOrdertDataReducer(response));
+      } else {
+        dispatch(setOrderErrorReducer(response));
+      }
+
     })();
   }, []);
 

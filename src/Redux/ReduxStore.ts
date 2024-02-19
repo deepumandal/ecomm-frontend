@@ -3,13 +3,15 @@ import productSlice from "./ProductsSlice/slice";
 import filterSlice from "./FilterSlice/slice";
 import cartSlice from "./CartSlice/slice";
 import CheckoutSlice from "./CheckOutSlice/slice";
+import orderSlice from "./OrderSlice/slice";
+
 const reduxStore = configureStore({
   reducer: {
     productSlice,
     filterSlice,
-
     cartSlice,
     CheckoutSlice,
+    orderSlice,
   },
 });
 

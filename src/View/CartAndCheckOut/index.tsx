@@ -2,6 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import CartData from "../../components/CartData";
 import CheckoutData from "../../components/CheckoutData";
+import OrderSection from "../../components/OrderSection";
 
 const CartAndcheckout: React.FC = () => {
   return (
@@ -25,7 +26,8 @@ const CartAndcheckout: React.FC = () => {
           <CartData />
           <CheckoutData />
         </Stack>
-        <Stack>orders</Stack>
+        <OrderSection />
+        
       </Stack>
     </Stack>
   );

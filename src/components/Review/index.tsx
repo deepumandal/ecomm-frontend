@@ -47,18 +47,25 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-        {product.map(({ name, description, price, productCount }) => (
-          <ListItem key={name} sx={{ py: 1, px: 0 }}>
-            <ListItemText
-              primary={name}
-              secondary={`${description.slice(0, 20)}...`}
-            />
-            <Typography variant="body2">
-              {" "}
-              {productCount} * {price}
-            </Typography>
-          </ListItem>
-        ))}
+        {product.map(
+          ({
+            name,
+            description,
+            price,
+            productCount,
+          }: productCardI & cartDataInterface) => (
+            <ListItem key={name} sx={{ py: 1, px: 0 }}>
+              <ListItemText
+                primary={name}
+                secondary={`${description?.slice(0, 20)}...`}
+              />
+              <Typography variant="body2">
+                {" "}
+                {productCount} * {price}
+              </Typography>
+            </ListItem>
+          )
+        )}
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography
