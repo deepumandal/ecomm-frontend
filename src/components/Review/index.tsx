@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -28,15 +28,9 @@ export default function Review() {
     (store) => store.cartSlice
   ) as cartSliceInitialStateInterface;
 
-  const { products, productCache } = useSelector<RootState>(
+  const { productCache } = useSelector<RootState>(
     (store) => store.productSlice
   ) as productSliceInitialStateI;
-
-  const product: (productCardI & cartDataInterface)[] = cartData.map((cart) => {
-    const product = products.find((item) => item._id === cart.productId);
-
-    return { ...product, ...cart };
-  }) as (productCardI & cartDataInterface)[];
 
   return (
     <React.Fragment>
@@ -65,6 +59,7 @@ export default function Review() {
             variant="subtitle1"
             sx={{ fontWeight: 700, color: "red" }}
           >
+            {/* count total ammount  */}
             {cartData.reduce((_, { productCount, productTotal }) => {
               return _ + productCount * productTotal;
             }, 0)}

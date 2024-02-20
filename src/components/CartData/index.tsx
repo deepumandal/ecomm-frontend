@@ -1,5 +1,6 @@
-import { Stack, Typography } from "@mui/material";
-import React from "react";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import React, { memo } from "react";
 import { RootState } from "../../Redux/ReduxStore";
 import { useSelector } from "react-redux";
 import { cartSliceInitialStateInterface } from "../../Redux/CartSlice/module/initialState";
@@ -23,7 +24,6 @@ const CartData: React.FC = () => {
       <Stack flexDirection={"column"}>
         {cartData.map((cartitem) => {
           const { productCount, productId, productTotal } = cartitem;
-
           return (
             <CartAndOrderProduct
               key={cartitem.productId}
@@ -39,4 +39,4 @@ const CartData: React.FC = () => {
   );
 };
 
-export default CartData;
+export default memo(CartData);

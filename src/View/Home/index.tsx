@@ -1,7 +1,9 @@
 import Stack from "@mui/material/Stack";
-import React from "react";
-import DesktopFilters from "../../components/DesktopFilters";
-import ProductLists from "../../components/ProductLists";
+import React, { memo } from "react";
+const DesktopFilters = React.lazy(
+  () => import("../../components/DesktopFilters")
+);
+const ProductLists = React.lazy(() => import("../../components/ProductLists"));
 
 const HomePage: React.FC = () => {
   return (
@@ -21,4 +23,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default memo(HomePage);

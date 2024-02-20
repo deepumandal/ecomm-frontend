@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import { AppDispatch, RootState } from "../../Redux/ReduxStore";
 import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initialState";
 import { applyFiltersReducer } from "../../Redux/FilterSlice/slice";
@@ -21,7 +21,7 @@ const SearchQuerryFilter: React.FC = () => {
         })
       );
     },
-    300 
+    300
   );
 
   return (
@@ -38,4 +38,4 @@ const SearchQuerryFilter: React.FC = () => {
   );
 };
 
-export default SearchQuerryFilter;
+export default memo(SearchQuerryFilter);

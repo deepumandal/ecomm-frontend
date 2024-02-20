@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import SelectFilter from "../SelectFilter";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/ReduxStore";
@@ -60,4 +60,4 @@ const CategoryFilter = () => {
   );
 };
 
-export default CategoryFilter;
+export default memo(CategoryFilter);

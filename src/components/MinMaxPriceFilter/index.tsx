@@ -1,5 +1,6 @@
-import { Stack, Typography } from "@mui/material";
-import React from "react";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import React, { memo } from "react";
 import TypeAndSelect from "../TypeAndSelect";
 import {
   maxPriceRange,
@@ -65,4 +66,4 @@ const MinMaxPriceFilter: React.FC = () => {
   );
 };
 
-export default MinMaxPriceFilter;
+export default memo(MinMaxPriceFilter);

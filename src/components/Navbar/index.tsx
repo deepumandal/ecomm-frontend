@@ -4,7 +4,7 @@ import Logo from "../Logo";
 import UserMenu from "../UserMenu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Hamburgur from "../Hamburgur";
-import { Router, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const router = useNavigate();
