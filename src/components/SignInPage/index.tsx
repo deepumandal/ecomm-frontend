@@ -1,17 +1,15 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  FormControlLabel,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Container from "@mui/material/Container";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../Redux/ReduxStore";
 import {
@@ -30,8 +28,6 @@ const SignInPage: React.FC<pageProps> = ({ toggle }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const route = useNavigate();
-
-
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -124,4 +120,4 @@ const SignInPage: React.FC<pageProps> = ({ toggle }) => {
   );
 };
 
-export default SignInPage;
+export default memo(SignInPage);

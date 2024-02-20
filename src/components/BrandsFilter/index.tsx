@@ -1,5 +1,6 @@
-import React, { ChangeEvent } from "react";
-import { FormLabel, Stack } from "@mui/material";
+import React, { memo } from "react";
+import Stack from "@mui/material/Stack";
+import FormLabel from "@mui/material/FormLabel";
 import BrandsFilterOptions from "../BrandsFilterOptions";
 
 const BrandsFilter: React.FC = () => {
@@ -11,4 +12,4 @@ const BrandsFilter: React.FC = () => {
   );
 };
 
-export default BrandsFilter;
+export default memo(BrandsFilter);

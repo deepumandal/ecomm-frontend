@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/ReduxStore";
 import { productSliceInitialStateI } from "../../Redux/ProductsSlice/modules/initialState";
@@ -21,7 +21,6 @@ interface pageProps {
   productTotal: number;
   OrderId?: string;
   ExpectedDelivery?: string;
-
   type: "Cart" | "Order";
 }
 let isFirst: boolean = true;
@@ -29,9 +28,7 @@ const CartAndOrderProduct: React.FC<pageProps> = ({
   type,
   productCount,
   productId,
-  productTotal,
   ExpectedDelivery,
-  OrderId,
 }) => {
   const { productCache } = useSelector<RootState>(
     (store) => store.productSlice
@@ -44,7 +41,7 @@ const CartAndOrderProduct: React.FC<pageProps> = ({
         const response: apiResponse = await GetFilteredDataApiService({
           _id: productId,
         });
-
+        isFirst = false
         dispatch(addToProductCacheReducer(response.data[0]));
       })();
   }, []);
@@ -115,4 +112,4 @@ const CartAndOrderProduct: React.FC<pageProps> = ({
   );
 };
 
-export default CartAndOrderProduct;
+export default memo(CartAndOrderProduct);

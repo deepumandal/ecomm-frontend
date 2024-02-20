@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/ReduxStore";
 import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initialState";
@@ -68,4 +68,4 @@ const SubCategoryFilter: React.FC = () => {
   );
 };
 
-export default SubCategoryFilter;
+export default memo(SubCategoryFilter);

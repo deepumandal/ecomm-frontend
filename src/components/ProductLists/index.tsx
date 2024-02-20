@@ -1,11 +1,7 @@
-import { Stack } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import React, { memo } from "react";
-import SelectFilter from "../SelectFilter";
-import { priceRangeI } from "../../utils/constants";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/ReduxStore";
-import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initialState";
-import { CategoryLists } from "../../utils/CatSubcatBrands";
 import CategoryFilter from "../Categoryfilter";
 import SubCategoryFilter from "../SubCategoryFilter";
 import { productSliceInitialStateI } from "../../Redux/ProductsSlice/modules/initialState";
@@ -33,12 +29,10 @@ const ProductLists: React.FC = () => {
         justifyContent={"space-between"}
         gap={1}
       >
-        {/* Category & subcategory filter */}
         <CategoryFilter />
         <SubCategoryFilter />
       </Stack>
       <Stack flexDirection={"row"} flexWrap={"wrap"}>
-        {/* todo */}
         {products.map((product) => {
           return (
             <ProductCard

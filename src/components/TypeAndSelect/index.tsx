@@ -1,6 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { priceRangeI } from "../../utils/constants";
-import { Autocomplete, TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 interface ComponentProps {
   label: string;
   defaultValue: string | undefined;
@@ -22,11 +23,11 @@ const TypeAndSelect: React.FC<ComponentProps> = ({
 
   return (
     <Autocomplete
-      freeSolo      
+      freeSolo
       defaultValue={defaultLabel}
       options={options.map((option) => option.label)}
       renderInput={(params) => (
-        <TextField  {...params} label={label} variant="standard" />
+        <TextField {...params} label={label} variant="standard" />
       )}
       onChange={onChange}
       fullWidth
@@ -34,4 +35,4 @@ const TypeAndSelect: React.FC<ComponentProps> = ({
   );
 };
 
-export default TypeAndSelect;
+export default memo(TypeAndSelect);

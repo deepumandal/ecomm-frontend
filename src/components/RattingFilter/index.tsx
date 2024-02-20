@@ -4,7 +4,7 @@ import { RattingRange, priceRangeI } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/ReduxStore";
 import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initialState";
-import { Stack } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import { applyFiltersReducer } from "../../Redux/FilterSlice/slice";
 import SelectFilter from "../SelectFilter";
 

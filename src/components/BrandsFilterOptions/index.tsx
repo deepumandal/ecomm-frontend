@@ -1,5 +1,7 @@
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import React, { ChangeEvent } from "react";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import React, { ChangeEvent, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/ReduxStore";
 import { filterSliceInitialStateI } from "../../Redux/FilterSlice/modules/initialState";
@@ -7,7 +9,7 @@ import { applyFiltersReducer } from "../../Redux/FilterSlice/slice";
 import { CategoryLists } from "../../utils/CatSubcatBrands";
 
 const BrandsFilterOptions: React.FC = () => {
-  const { subcategory, brand } = useSelector<RootState>(
+  const { subcategory, brand, category } = useSelector<RootState>(
     (store) => store.filterSlice
   ) as filterSliceInitialStateI;
 
@@ -21,15 +23,16 @@ const BrandsFilterOptions: React.FC = () => {
     );
   };
 
-  const Categories = CategoryLists.find((item) => item.name) || {
+  const Categories = CategoryLists.find((item) => item.name == category) || {
     name: undefined,
     subCategories: [],
   };
+
   const subCategories = Categories.subCategories.find(
     (item) => item.name == subcategory
   );
-  const brands = subCategories?.brands || [];
 
+  const brands = subCategories?.brands || [];
   return (
     <RadioGroup
       aria-labelledby="brands"
@@ -51,4 +54,4 @@ const BrandsFilterOptions: React.FC = () => {
   );
 };
 
-export default BrandsFilterOptions;
+export default memo(BrandsFilterOptions);

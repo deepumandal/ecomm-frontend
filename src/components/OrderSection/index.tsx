@@ -1,5 +1,6 @@
-import { Stack, Typography } from "@mui/material";
-import React from "react";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/ReduxStore";
 import { orderSliceInitialStateInterface } from "../../Redux/OrderSlice/module/initialState";
@@ -46,4 +47,4 @@ const OrderSection: React.FC = () => {
   );
 };
 
-export default OrderSection;
+export default memo(OrderSection)

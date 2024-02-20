@@ -1,5 +1,5 @@
-import { Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import Stack from "@mui/material/Stack";
+import React, { memo } from "react";
 import CartData from "../../components/CartData";
 import CheckoutData from "../../components/CheckoutData";
 import OrderSection from "../../components/OrderSection";
@@ -33,4 +33,4 @@ const CartAndCheckout: React.FC = () => {
   );
 };
 
-export default CartAndCheckout;
+export default memo(CartAndCheckout);

@@ -1,12 +1,11 @@
-import {
-  Box,
-  Button,
-  Stack,
-  Step,
-  StepLabel,
-  Stepper,
-  Typography,
-} from "@mui/material";
+import Typography from "@mui/material/Typography"
+import Stepper from "@mui/material/Stepper"
+import StepLabel from "@mui/material/StepLabel"
+import Step from "@mui/material/Step"
+import Stack from "@mui/material/Stack"
+import Button from "@mui/material/Button"
+import Box from "@mui/material/Box"
+
 import React, { useState } from "react";
 import AddressForm from "../AddressForm";
 import PaymentForm from "../PaymentForm";
@@ -47,7 +46,7 @@ function getStepContent(step: number) {
 }
 
 const CheckoutData: React.FC = () => {
-  const [activeStep, setActiveStep] = useState<number>(2);
+  const [activeStep, setActiveStep] = useState<number>(0);
   const [orderID, setorderID] = useState<string>("");
 
   const { cartData } = useSelector<RootState>(
@@ -102,7 +101,6 @@ const CheckoutData: React.FC = () => {
     }
   };
   const handleNext = async () => {
-    // product order api call
     if (activeStep === steps.length - 1) {
       await handleCartOrder();
     }

@@ -3,7 +3,7 @@ import { cartSliceInitialState } from "./module/initialState";
 import setLoading from "./module/setLoading";
 import getCartData from "./module/setCartData";
 import setError from "./module/setError";
-import clearCart from "./module/clear";
+import clearCart from "./module/clearCart";
 
 const cartSlice = createSlice({
   name: "cartSlice",

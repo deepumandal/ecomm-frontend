@@ -5,6 +5,7 @@ import cartSlice from "./CartSlice/slice";
 import CheckoutSlice from "./CheckOutSlice/slice";
 import orderSlice from "./OrderSlice/slice";
 import UserSlice from "./UserSlice/slice";
+
 const reduxStore = configureStore({
   reducer: {
     productSlice,

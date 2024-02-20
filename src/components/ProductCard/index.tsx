@@ -1,15 +1,12 @@
-import React, { useState } from "react";
-import {
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-  Button,
-  IconButton,
-  Grid,
-} from "@mui/material";
+import React, { memo } from "react";
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import CardActionArea from "@mui/material/CardActionArea";
+import Card from "@mui/material/Card";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
@@ -150,4 +147,4 @@ const ProductCard: React.FC<componentInterface> = ({
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

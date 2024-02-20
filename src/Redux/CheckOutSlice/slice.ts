@@ -11,8 +11,6 @@ const CheckoutSlice = createSlice({
     setCartLoadingReducer: setLoading,
     setCartErrorReducer: setError,
     onChangeCheckoutReducer: onChangeCheckout,
-    
-    // CheckOutReducer todo api call
   },
 });
 
